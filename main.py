@@ -177,10 +177,8 @@ async def main():
             for shot in shots:
                 if shot.isColliding(asteroid):
                     radius = asteroid.radius
-                    curr_score = add_score(radius, curr_score)
                     shot.kill()
                     await play_sound('tracks/shooting-laser.mp3')
-                    # curr_score = await add_score(radius, curr_score)
                     asteroid.split()
 
         for element in drawable:
