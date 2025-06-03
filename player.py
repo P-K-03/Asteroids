@@ -3,6 +3,7 @@ from circleshape import *
 from shot import *
 from constants import *
 
+pygame.mixer.init()
 class Player(CircleShape):
     
     def __init__(self, x, y, PLAYER_RADIUS):
@@ -59,6 +60,9 @@ class Player(CircleShape):
             self.move(-dt)
 
         if keys[pygame.K_SPACE]:
+            pygame.mixer.music.load("tracks/shooting-laser.mp3")
+            pygame.mixer.music.play(loops = 1)
+            
             self.shoot()
             
         

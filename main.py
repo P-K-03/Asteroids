@@ -19,11 +19,6 @@ def game_over_animation(screen, font, clock):
     Clears the screen to black and displays "GAME OVER" with a letter-by-letter animation.
     The text will be centered on the screen.
 
-    Args:
-        screen (pygame.Surface): The main display surface.
-        font (pygame.font.Font): The font object to use for rendering text.
-        clock (pygame.time.Clock): Pygame clock object for managing tick rate.
-
     Behavior:
     - Pressing any key (except ESCAPE) during the letter animation will complete it instantly.
     - Pressing any key (except ESCAPE) after the text is fully displayed will exit this function.
@@ -120,7 +115,7 @@ def game_over_animation(screen, font, clock):
     # Loop has exited, meaning the animation is done and a key was pressed to continue.
 
 
-async def play_sound(loc : str): 
+async def play_sound(loc : str, volume : float = 0.8 ): 
     pygame.mixer.music.load(loc)
     pygame.mixer.music.play(loops = 1)
 
@@ -156,7 +151,9 @@ async def main():
     while(True):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
+                return           
+
+
         # Game
         screen.fill("black")
         
@@ -178,14 +175,14 @@ async def main():
                 if shot.isColliding(asteroid):
                     radius = asteroid.radius
                     shot.kill()
-                    await play_sound('tracks/shooting-laser.mp3')
+                    await play_sound('tracks/asteroid-destruction.wav')
                     asteroid.split()
 
         for element in drawable:
             element.draw(screen)
             
         pygame.display.flip()
-        dt = clock.tick(80)/1000 #Limiting the frame rate to 80 FPS
+        dt = clock.tick(100)/1000 #Limiting the frame rate to 80 FPS
 
 
 if __name__ == "__main__":
